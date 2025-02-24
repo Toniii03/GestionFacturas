@@ -1,0 +1,132 @@
+{%extends 'gestFacturas/base.html'%}
+{% load static %}
+{% block titulo %}Facturas{% endblock %}
+
+{% block body %}
+
+<div class="contenido-pagos">
+    <div class="filtros">
+        <div style="padding: 0.7rem;border: solid 1px #2f2f49;border-radius: 0.5rem ;" class="filtroFecha">
+            <div style="display: flex;gap: 0.6rem;" class="filtroOrdenadoAscendente" onclick="toggleVisibility()">
+                <div>
+                    <label style="font-size: large;">Ordenar por:</label>
+                    </div> 
+                <div>
+                    <a style="text-decoration: none;margin-right: 0.2rem;font-size: large;" href="?orden=fecha_pago&direccion={% if request.GET.direccion == 'dsc' %}asc{%else%}dsc{%endif%}">
+                    Fecha</a><i class="fas fa-arrow-up"></i>
+                
+                </div>
+            </div>
+            <div style="display: flex;gap: 0.6rem;"  class="filtroOrdenadoDescendente" onclick="toggleVisibility()">
+                <div>
+                    <label style="font-size: large;">Ordenar por:</label>
+                </div> 
+
+                <div>
+                    <a style="text-decoration: none;margin-right: 0.2rem;font-size: large;" href="?orden=fecha_pago&direccion={% if request.GET.direccion == 'dsc' %}asc{%else%}dsc{%endif%}">
+                        Fecha</a><i class="fas fa-arrow-down"></i>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 0.7rem;border: solid 1px #2f2f49;border-radius: 0.5rem ;" class="filtroFecha" >
+            <div style="display: flex;gap: 0.6rem;" class="filtroOrdenadoAscendentefactura" onclick="toggleVisibility2()">
+                <div>
+                    <label style="font-size: large;" >Factura:</label>
+                </div>
+
+                <div>
+                    <a style="text-decoration: none;margin-right: 0.1rem;font-size: large;" href="?orden=factura&direccion={% if request.GET.direccion == 'dsc' %}asc{%else%}dsc{%endif%}">Más Antigua
+                    </a><i class="fas fa-arrow-up"></i>
+                </div>
+                 
+            </div>
+            <div style="display: flex;gap: 0.6rem;" class="filtroOrdenadoDescendentefactura" onclick="toggleVisibility2()">
+                <div><label style="font-size: large;">Factura:</label></div>
+                <div>
+                    <a style="text-decoration: none;margin-right: 0.1rem;font-size: large;" href="?orden=factura&direccion={% if request.GET.direccion == 'dsc' %}asc{%else%}dsc{%endif%}">Más Reciente</a> <i class="fas fa-arrow-down"></i>
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+    <div class="lista_contenido_pagos">
+        <div class="obj_lista_contenido_pagos">
+            <table>
+                <thead style="border: solid 1px black; border-bottom: solid 3px black; border-top: solid 3px black;">
+                    <tr>
+                        <th
+                            style="border-right: solid 1px white; text-align: center; padding: 0.7rem; background-color: #2f2f49; color: white;">
+                            Fecha Vencimiento
+                        </th>
+                        <th
+                            style="border-left: solid 1px white; text-align: center; padding: 0.7rem; background-color: #2f2f49; color: white;">
+                            Factura (Hecha Por - Cliente)
+                        </th>
+                        <th
+                            style="border-left: solid 1px white; text-align: center; padding: 0.7rem; background-color: #2f2f49; color: white;">
+                            Más Información
+                        </th>
+                        <th
+                            style="border-left: solid 1px white; text-align: center; padding: 0.7rem; background-color: #2f2f49; color: white;">
+                            Método Pago
+                        </th>
+                        <th
+                            style="border-left: solid 1px white; text-align: center; padding: 0.7rem; background-color: #2f2f49; color: white;">
+                            Acción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody style="border-bottom: solid 3px black;">
+                    {% for pago in pagos %}
+                    <tr style="border: solid 1px black; text-align: center;">
+                        <td style="border: solid 1px black; vertical-align: middle;">
+                            {{ pago.fecha_pago|date:"d/m/Y" }}
+                        </td>
+                        <td style="border: solid 1px black; vertical-align: middle;">
+                            ID{{ pago.factura.id }} - {{ pago.factura.hechaPor }}
+                        </td>
+                        <td style="border: solid 1px black; vertical-align: middle; font-size: 13px;">
+                            <div><strong>Cliente:</strong> {{ pago.factura.cliente }}</div>
+                            <div><strong>Teléfono:</strong> {{ pago.factura.cliente.telefono }}</div>
+                            <div><strong>Total:</strong> {{ pago.total_pagar }}€</div>
+                        </td>
+                        <td style="border: solid 1px black; vertical-align: middle;">
+                            {{ pago.factura.metodo_pago }}
+                        </td>
+                        <td style="border: solid 1px black; vertical-align: middle;">
+                            <div style="display: flex; justify-content: center; gap: 0.5rem;">
+
+                                <a href="{%url 'pago_editar' pk=pago.pk%}">
+                                    <div class="div_con_hover"
+                                        style="padding: 0.2rem; background-color: rgb(35, 179, 167); border-radius: 0.3rem;">
+                                        <img class="imagenBasura1" src="../../static/images/editar.png">
+                                    </div>
+                                </a>
+
+                                <a href="{%url 'pago_eliminar' pk=pago.pk%}">
+                                    <div class="div_con_hover"
+                                        style="padding: 0.2rem; background-color: rgb(189, 15, 15); border-radius: 0.3rem;">
+                                        <img class="imagenBasura1" src="../../static/images/papelera (2).png">
+                                    </div>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 1rem; border: solid 1px black;">
+                            <h4>Todavía no hay pagos que gestionar</h4>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% block anadirScript%}
+    <script src="{% static 'scripts/script.js' %}"></script>
+    {% endblock%}
+
+    {% endblock %}

@@ -1,0 +1,15 @@
+{%extends 'gestFacturas/base.html'%}
+{% load static %}
+{% block titulo %}Clientes{% endblock %}
+
+{% block body %}
+<div class="formulario">
+    <form method="post" class="formularioCrearCliente">
+        {% csrf_token %}
+        {{form}}
+        <button class="botonCrear" type="submit">Crear</button>
+        <a href="{% url 'clientes' %}" class="botonCancelar">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}

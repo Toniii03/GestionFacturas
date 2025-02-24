@@ -1,0 +1,112 @@
+{% extends 'gestFacturas/base.html' %}
+{% load static %}
+{% block titulo %}Facturas{% endblock %}
+
+{% block body %}
+<div class="div_btnVolverAtras">
+    <a href="javascript:window.history.back();" class="boton_volver_atras">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </a>
+    <h1>{{hechaPor}}</h1>
+</div>
+
+
+<form method="post" action="" id="formularioo">
+    {% csrf_token %}
+    <div class="formulario">
+        <div class="form_cabecera">
+            <div>
+                <input type="hidden" name="articulos_data" id="articulos_data">
+                <label>Hecho por: </label>
+                <div class="divEmpresaYclientes">
+                    {{form.hechaPor}}
+                </div>
+            </div>
+            <div>
+                <label>Cliente:</label>
+                <div class="divEmpresaYclientes">
+                    {{form.cliente}}
+                </div>
+            </div>
+            <div>
+                <label>Fecha emision:{{form.fecha_emision}}</label>
+            </div>
+            <div>
+                <label>Fecha vencimiento:{{form.fecha_vencimiento}}</label>
+            </div>
+            <div>
+                <label>Metodo de pago: {{form.metodo_pago}}</label>
+            </div>
+            <div>
+                <label>Estado: {{form.estado}}</label>
+            </div>
+        </div>
+
+        <!-- Artículos -->
+        <div>
+            <h5>Articulos</h5>
+            <div id="articulos-container" class="form_articulos">
+                <table>
+                    <thead>
+                        <td>ID</td>
+                        <td>Articulo</td>
+                        <td>Cantidad</td>
+                        <td>Precio unitario</td>
+                        <td></td>
+                    </thead>
+                    <tbody>
+                        <input type="hidden" name="articulos" id="articulos" value="{{listaArticulos_json}}">
+                        {% for articulo in listaArticulos %}
+                        <tr>
+                            <td>{{ articulo.id }}</td>
+                            <td>{{ articulo.articulo }}</td>
+                            <td>{{ articulo.cantidad }}</td>
+                            <td>{{ articulo.precio_unitario|floatformat:2 }}</td>
+                            <td>
+                                <div class="factura_articulo_eliminar">
+                                    <img class="imagenBasura1" src="../../static/images/papelera.png">
+                                    <img class="imagenBasura2" src="../../static/images/papelera (1).png">
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="form_partebaja">
+            <div class="form_partebaja_subtotal">
+                <div>
+                    <p>Subtotal (€)</p> {{form.subtotal}}
+                </div>
+
+                <div>
+                    <p>Impuesto (%)</p> {{form.impuesto}}
+                </div>
+
+                <div>
+                    <p>Descuento (%)</p> {{form.descuento}}
+                </div>
+            </div>
+
+            <div class="form_partebaja_total">
+                <label>Total (€) {{form.total}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_botones_editar">
+        <button type="submit" class="boton_editar">Guardar</button>
+        <a href="javascript:window.history.back();" type="button" class="boton_eliminar">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
+
+{% block anadirScript%}
+<script src="{% static 'scripts/scriptEditarFactura.js' %}"></script>
+{% endblock%}

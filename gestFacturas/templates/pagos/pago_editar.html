@@ -1,0 +1,47 @@
+{% extends 'gestFacturas/base.html' %}
+{% load static %}
+{% block titulo %}Pago{% endblock %}
+
+{% block body %}
+<h1>Pago</h1>
+
+<a href="javascript:window.history.back();" class="boton_volver_atras">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+</a>
+
+<div>
+    <form method="post" class="formulario_editarCliente">
+        <div class="info_Usuario">
+            {% csrf_token %}
+            <div style="display: grid;grid-template-columns: auto auto;">
+                <div><label>Factura</label>{{ form.factura }}</div>
+                <div> <label>Total a pagar (€)</label>{{ form.total_pagar }}</div>
+            </div>
+
+            <div style="display: grid;grid-template-columns: auto auto;">
+                <div><label>Fecha vencimiento pago (€)</label>{{ form.fecha_pago }}</div>
+                <div><label>Método de pago (€)</label>{{ form.metodo_pago }}</div>
+                <div><label>Pagado (€)</label>{{ form.pagado }}</div>
+            </div>  
+        </div>
+        <div class="div_botones_editar">
+            <button type="submit" class="boton_guardar">Guardar</button>
+            <a href="javascript:window.history.back();" class="borrar_btnEliminar">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% if form.errors %}
+    <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}

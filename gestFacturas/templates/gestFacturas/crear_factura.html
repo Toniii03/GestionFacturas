@@ -1,0 +1,108 @@
+{% extends 'gestFacturas/base.html' %}
+{% load static %}
+{% block titulo %}Facturas{% endblock %}
+
+{% block body %}
+<div class="div_btnVolverAtras">
+    <a href="{% url 'facturas' %}" class="boton_volver_atras">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </a>
+    <h1>Crear Presupuesto</h1>
+</div>
+
+
+<form method="post" action="" id="formularioo">
+    {% csrf_token %}
+
+    <div class="formulario">
+        <div class="form_cabecera">
+            <div>
+                <label>Hecho por: </label>
+                <div class="divEmpresaYclientes">
+                    {{form.hechaPor}}
+                    <a onclick=abrir_modal_Empresas("{% url "empresa_añadir_modal" %}") class="facturaAñadirEmpresa">
+                        <img src="../../static/images/mas.png" style="width: 20px;">
+                    </a>
+                </div>
+            </div>
+            <div>
+                <label>Cliente:</label>
+                <div class="divEmpresaYclientes">
+                    {{form.cliente}}
+                    <a onclick=abrir_modal_cliente("{% url "cliente_añadir_modal" %}") class="facturaAñadirEmpresa">
+                        <img src="../../static/images/mas.png" style="width: 20px;">
+                    </a>
+                </div>
+            </div>
+            <div>
+                <label>Fecha emision:{{form.fecha_emision}}</label>
+            </div>
+            <div>
+                <label>Fecha vencimiento:{{form.fecha_vencimiento}}</label>
+            </div>
+            <div>
+                <label>Metodo de pago: {{form.metodo_pago}}</label>
+            </div>
+            <div>
+                <label>Estado: {{form.estado}}</label>
+            </div>
+        </div>
+
+        <!-- Artículos -->
+        <div id="articulos-container" class="form_articulos">
+            <div class="articulos_alertas"></div>
+            <div class="form_articulos_articulo">
+                <div>
+                    <label> Articulo</label> <input type="text" name="factArticulo" id="factArticulo">
+                </div>
+
+                <div>
+                    <label> Cantidad</label><input id="id_cantidad" type="number">
+                </div>
+
+                <div>
+                    <label> Precio unitario</label><input id="id_precio_unitario" type="number"> €
+                </div>
+                <input type="hidden" name="articulos_data" id="articulos_data">
+            </div>
+            <a type="button" class="boton_aniadir_articulo">Añadir
+                Artículo</a>
+        </div>
+
+        <div class="articuloAñadidos">
+        </div>
+
+        <div class="form_partebaja">
+            <div class="form_partebaja_subtotal">
+                <div>
+                    <p>Subtotal (€)</p> {{form.subtotal}}
+                </div>
+
+                <div>
+                    <p>Impuesto (%)</p> {{form.impuesto}}
+                </div>
+
+                <div>
+                    <p>Descuento (%)</p> {{form.descuento}}
+                </div>
+            </div>
+
+            <div class="form_partebaja_total">
+                <label>Total (€) {{form.total}}</label>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="">Crear Presupuesto</button>
+</form>
+
+<div class="modal fade" id="modalCrearEmpresa" role="dialog"></div>
+<div class="modal fade" id="modalCrearCliente" role="dialog"></div>
+{% endblock %}
+
+{% block anadirScript%}
+<script src="{% static 'scripts/scriptCrearFacturas.js' %}"></script>
+{% endblock%}

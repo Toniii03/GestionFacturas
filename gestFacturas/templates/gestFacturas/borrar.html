@@ -1,0 +1,32 @@
+{%extends 'gestFacturas/base.html'%}
+{% load static %}
+{% block titulo %}Clientes Borrar{% endblock %}
+
+{% block body %}
+
+<a onclick="window.history.back()" class="boton_volver_atras">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+</a>
+
+<form method="post">
+    {%csrf_token%}
+    <div class="contenido-borrar">
+        <div class="info_Usuario">
+            <h1>¿Estás seguro de que deseas eliminar {{objeto}}?</h1>
+            <p class="message">Si presionas "Eliminar", este elemento será eliminado permanentemente y no se podrá
+                recuperar.
+            </p>
+        </div>
+        <div class="div_botones_editar">
+            <button class="borrar_btnEliminar">Eliminar</button>
+            <a class="boton_volver" onclick="window.history.back()">Cancelar</a>
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock %}

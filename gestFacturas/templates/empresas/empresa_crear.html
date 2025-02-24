@@ -1,0 +1,23 @@
+{%extends 'gestFacturas/base.html'%}
+{% load static %}
+{% block titulo %}Empresa{% endblock %}
+
+{% block body %}
+
+<a href="{% url 'empresas' %}" class="boton_volver_atras">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+</a>
+
+<div class="formulario">
+    <form method="post" class="formularioCrearCliente">
+        {% csrf_token %}
+        {{form}}
+        <button class="botonCrear" type="submit">Crear</button>
+        <a href="{% url 'empresas' %}" class="botonCancelar">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}

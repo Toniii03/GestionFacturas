@@ -1,0 +1,42 @@
+{%extends 'gestFacturas/base.html'%}
+{% load static %}
+{% block titulo %}Articulo{% endblock %}
+
+{% block body %}
+<h1>Empresa {{empresa}}</h1>
+<a href="{% url 'empresas' %}" class="boton_volver_atras">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+</a>
+
+<div class="contenido_Usuario">
+    <div class="informacion">
+        <div class="info_Usuario">
+            <p><label>Nombre:</label> {{empresa.nombre}}</p>
+            <p><label>CIF:</label> {{empresa.cif}}</p>
+            <p><label>Dirección:</label> {{empresa.direccion}}</p>
+        </div>
+        <div class="div_botones_editar">
+            <a href="{% url 'empresa_editar' pk=empresa.pk %}" class="boton_editar">Editar</a>
+            <a href="{% url 'empresa_eliminar' pk=empresa.pk %}" class="borrar_btnEliminar">Eliminar</a>
+            <a href="{% url 'empresas' %}" class="boton_volver">Volver</a>
+        </div>
+    </div>
+    <div class="facturas_usuario">
+        <div>
+            <h2>Facturas</h2>
+        </div>
+
+        {% for factura in facturasCliente%}
+        <a href="{% url 'factura_editar' pk=factura.pk%}" class="enlaceSinEstilo">
+            <div class="cartitaUsuario_detalles">{{factura}}</div>
+        </a>
+        {%empty%}
+        <p>No existen facturas asignadas como cliente</p>
+        {% endfor%}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post" action="{% url 'empresas_añadir' %}">
+        {% csrf_token %}
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Crear nueva empresa</h2>
+                </div>
+                <div class="modal-body">
+                    <div style="display: grid;flex-direction: column;gap: 1rem;">
+                        <div style="display: grid;grid-template-columns: 15% 75%;">
+                            <label> Nombre </label> {{form.nombre}}
+                        </div>
+                        <div style="display: grid;grid-template-columns: 15% 75%;"> <label> CIF </label>
+                            {{form.cif}}
+                        </div>
+                        <div style="display: grid;grid-template-columns: 15% 75%;">
+                            <label> Direccion </label> {{form.direccion}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="{% url 'factura_nueva' %}" class="btn btn-danger" type="button"
+                        data-dimiss="modal">Cancelar</a>
+                    <button class="btn btn-primary" type="submit">Crear Empresa</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
