@@ -27,7 +27,6 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
    git clone https://github.com/usuario/mi-proyecto-django.git
    cd mi-proyecto-django
    ```
-
    Asegúrate de reemplazar `https://github.com/usuario/mi-proyecto-django.git` con la URL de tu repositorio.
 
 ## (Recomendado) Instalación del VENV
@@ -91,7 +90,6 @@ El proyecto debería estar disponible en [http://127.0.0.1:8000/](http://127.0.0
 
 Si tienes alguna pregunta o encuentras algún problema, no dudes en abrir un _issue_ en el repositorio o contactar conmigo.
 
-- **Correo electrónico**: [tu-email@example.com](mailto:tu-email@example.com)
-- **LinkedIn**: [tu-linkedin](https://www.linkedin.com/in/tu-linkedin)
+- **Correo electrónico**: [tonicaceres2003@gmail.com](mailto:tonicaceres2003@gmail.com)
 
 ¡Gracias por revisar mi proyecto!
