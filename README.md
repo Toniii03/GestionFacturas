@@ -48,7 +48,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 - Si estás en **Windows**:
 
   ```bash
-  .\env\Scriptsctivate
+  .\env\Script\activated
   ```
 
 ## Instalación de Requisitos
